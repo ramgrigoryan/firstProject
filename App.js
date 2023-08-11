@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+} from "react-native";
 
 export default function App() {
   const [newGoal, setNewGoal] = useState("");
@@ -24,21 +31,22 @@ export default function App() {
         </View>
       </View>
       <View style={styles.dataBlock}>
-        <Text style={styles.goalBlockTitle}>List of your goals</Text>
-        {goals.map((goal, index) => (
-          <Text
-            onPress={() => {
-              setGoals(
-                goals.filter(
-                  (_, removedItemIndex) => removedItemIndex !== index
-                )
-              );
-            }}
-            key={index}
-          >
-            {goal}
+        <ScrollView>
+          <Text style={styles.goalBlockTitle}>
+            {goals.length ? "List of your goals" : "Your list is empty"}
           </Text>
-        ))}
+          {goals.map((goal, index) => (
+            <View style={styles.goal} key={index}>
+              <Text style={styles.goalText}>{goal}</Text>
+              <Button
+                onPress={() => {
+                  setGoals(goals.filter((_, itemIndex) => itemIndex !== index));
+                }}
+                title="Remove goal"
+              ></Button>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -66,6 +74,18 @@ const styles = StyleSheet.create({
   },
   goalBlockTitle: {
     alignSelf: "center",
+  },
+  goal: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: 5,
+    padding: 10,
+    backgroundColor: "#BAD",
+    borderRadius: 8,
+  },
+  goalText: {
+    color: "#FFF",
   },
   textInput: {
     borderWidth: 1,
