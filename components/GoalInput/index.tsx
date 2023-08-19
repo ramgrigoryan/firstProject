@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { TextInput, StyleSheet, View, Button } from "react-native";
+import { Goal } from "../../App";
 
 interface GoalInputProps {
-  onButtonPress: (newGoal: string) => void;
+  onButtonPress: (newGoal: Goal) => void;
 }
 
 const GoalInput = ({ onButtonPress }: GoalInputProps) => {
   const [value, setValue] = useState("");
 
   const handleButtonPress = () => {
-    onButtonPress(value);
+    onButtonPress({ goalText: value, id: Math.random.toString() });
     setValue("");
   };
 

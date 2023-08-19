@@ -1,21 +1,23 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Goal } from "../../App";
 
 interface GoalItemProps {
   goal: {
-    index: number;
-    item: string;
+    item: Goal;
   };
-  onGoalItemButtonPress: (removedItemIndex: number) => void;
+  onGoalItemButtonPress: (removedItemIndex: string) => void;
 }
 
 const GoalItem = ({ goal, onGoalItemButtonPress }: GoalItemProps) => (
-  <View style={styles.goal} key={goal.index}>
-    <Text style={styles.goalText}>{goal.item}</Text>
-    <Button
-      onPress={() => onGoalItemButtonPress(goal.index)}
-      title="Remove goal"
-    />
-  </View>
+  <Pressable onPress={() => onGoalItemButtonPress(goal.item.id)}>
+    <View style={styles.goal} key={goal.item.id}>
+      <Text style={styles.goalText}>{goal.item.goalText}</Text>
+      {/* <Button
+        onPress={() => onGoalItemButtonPress(goal.index)}
+        title="Remove goal"
+      /> */}
+    </View>
+  </Pressable>
 );
 
 const styles = StyleSheet.create({

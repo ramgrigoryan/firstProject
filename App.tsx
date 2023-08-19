@@ -3,15 +3,20 @@ import { StyleSheet, Text, View, FlatList } from "react-native";
 import GoalInput from "./components/GoalInput";
 import GoalItem from "./components/GoalItem";
 
-export default function App() {
-  const [goals, setGoals] = useState([]);
+export interface Goal {
+  goalText: string;
+  id: string;
+}
 
-  const onButtonPress = (newGoal: string) => {
+export default function App() {
+  const [goals, setGoals] = useState<Goal[]>([]);
+
+  const onButtonPress = (newGoal: Goal) => {
     setGoals([...goals, newGoal]);
   };
 
-  const onGoalItemButtonPress = (removedItemIndex: number) => {
-    setGoals(goals.filter((_goal, index) => index !== removedItemIndex));
+  const onGoalItemButtonPress = (removedItemId: string) => {
+    setGoals(goals.filter(({ id }) => id !== removedItemId));
   };
 
   return (
