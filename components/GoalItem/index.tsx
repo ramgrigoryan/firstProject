@@ -9,7 +9,11 @@ interface GoalItemProps {
 }
 
 const GoalItem = ({ goal, onGoalItemButtonPress }: GoalItemProps) => (
-  <Pressable onPress={() => onGoalItemButtonPress(goal.item.id)}>
+  <Pressable
+    android_ripple={{ color: "#BA9" }}
+    style={({ pressed }) => pressed && styles.pressedItem}
+    onPress={() => onGoalItemButtonPress(goal.item.id)}
+  >
     <View style={styles.goal} key={goal.item.id}>
       <Text style={styles.goalText}>{goal.item.goalText}</Text>
       {/* <Button
@@ -32,6 +36,10 @@ const styles = StyleSheet.create({
   },
   goalText: {
     color: "#FFF",
+  },
+  pressedItem: {
+    opacity: 0.8,
+    backgroundColor: "#BAA",
   },
 });
 
